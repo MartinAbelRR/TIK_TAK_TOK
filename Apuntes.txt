@@ -1,0 +1,26 @@
+* Crear Proyecto 
+** Instalar Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+- Configurar la archivo plantilla.
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+- Agregar las directivas
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+ 
