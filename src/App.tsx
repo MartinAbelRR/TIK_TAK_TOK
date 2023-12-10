@@ -1,32 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { HtmlHTMLAttributes, useEffect, useRef, useState } from "react";
 import { Quad } from "./components/Quad";
 
 
 const posiciones: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export const App = () => {
-  const ubicaciones: boolean[] = [];
   
   
   const [cambiarMarca, setcambiarMarca] = useState(true);
-  const [ubicacion, setUbicacion] = useState(ubicaciones);
   const [hidden, setHidden] = useState(true);
-  
+  const myRefGrid: React.MutableRefObject<any> = useRef();
+
 
   const changeMarca = ():void => {    
-    setUbicacion((ubicacion) => ([...ubicacion, cambiarMarca]));    
-
     if(cambiarMarca === false) setcambiarMarca(true);
     else setcambiarMarca(false); 
   }
 
-  const isGanaste = (array: boolean[]): void => {    
-    console.log(array);
-    
-    if((array[0] === true) && (array[2] === true) && (array[4] === true)){
+  const isGanaste = (): void => {
+    let array: string[] = [];
+    for (let i = 0; i < myRefGrid.current.children.length; i++) {
+      const children: string = myRefGrid.current.children[i].innerText;
+      array.push(children);      
+    }    
+    if((array[0] === 'X' && array[1] === 'X' && array[2] === 'X') ||
+    (array[3] === 'X' && array[4] === 'X' && array[5] === 'X') ||
+    (array[6] === 'X' && array[7] === 'X' && array[8] === 'X') ||
+    (array[0] === 'X' && array[3] === 'X' && array[6] === 'X') ||
+    (array[1] === 'X' && array[4] === 'X' && array[7] === 'X') ||
+    (array[2] === 'X' && array[5] === 'X' && array[8] === 'X') ||
+    (array[0] === 'X' && array[4] === 'X' && array[8] === 'X') ||
+    (array[2] === 'X' && array[4] === 'X' && array[6] === 'X')){
       setHidden(false);
-    }
+    }                                         
   }
 
   const changeClose = (): void => {
@@ -34,7 +41,7 @@ export const App = () => {
   }
 
   useEffect(() => {    
-    isGanaste(ubicacion);
+    isGanaste();
   }, [cambiarMarca]);
   
 
@@ -58,7 +65,8 @@ export const App = () => {
           <h1 className="font-bold text-4xl text-white py-10 text-center">TIK TAK TOK</h1>
           <div className="grid place-content-center h-[500px]">
             <section 
-              className="bg-slate-300 grid grid-cols-3 grid-rows-3 h-96 w-96 rounded-xl"              
+              className="bg-slate-300 grid grid-cols-3 grid-rows-3 h-96 w-96 rounded-xl" 
+              ref={myRefGrid}             
             >
               {posiciones.map((posicion) => (
                   <Quad 

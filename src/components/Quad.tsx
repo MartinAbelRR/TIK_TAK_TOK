@@ -15,6 +15,7 @@ export const Quad = ({cambiarMarca, changeMarca}: Props) => {
   const [marcador, setMarcador] = useState('');
 
   const colocarMarca = (): void => {
+    
     if(marcador === ''){
       cambiarMarca ? setMarcador(Marcador.x) : setMarcador(Marcador.y);
       changeMarca();
