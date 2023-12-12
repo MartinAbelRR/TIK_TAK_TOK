@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Marker } from "../enum";
+import { Marker } from "../enums";
 
 interface Parameters {
     myRefGrid: any;
@@ -12,7 +12,7 @@ export const useGame = ({myRefGrid, positionsBoard}: Parameters) => {
   const [hidden, setHidden] = useState(true);
 
   const paintMark = (posicion: number): void => {
-    const marker = changeMark === false ? Marker.x : Marker.y;
+    const marker = changeMark === false ? Marker.x : Marker.o;
     setchangeMark(!changeMark);
     setBoard(
       board.map((marked, index) => {
